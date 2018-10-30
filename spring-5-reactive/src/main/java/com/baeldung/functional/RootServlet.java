@@ -50,7 +50,7 @@ public class RootServlet extends ServletHttpHandlerAdapter {
             .map(MultiValueMap::toSingleValueMap)
             .map(formData -> {
                 System.out.println("form data: " + formData.toString());
-                if ("baeldung".equals(formData.get("user")) && "you_know_what_to_do".equals(formData.get("token"))) {
+                if ("baeldung".equals(formData.get("username")) && "you_know_what_to_do".equals(formData.get("password"))) {
                     return ok().body(Mono.just("welcome back!"), String.class)
                         .block();
                 }
