@@ -58,8 +58,8 @@ public class FunctionalWebApplicationIntegrationTest {
     @Test
     public void givenLoginForm_whenPostValidToken_thenSuccess() throws Exception {
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>(1);
-        formData.add("username", "baeldung");
-        formData.add("password", "you_know_what_to_do");
+        formData.add("user", "baeldung");
+        formData.add("token", "you_know_what_to_do");
 
         client.post()
             .uri("/login")
@@ -75,8 +75,8 @@ public class FunctionalWebApplicationIntegrationTest {
     @Test
     public void givenLoginForm_whenRequestWithInvalidToken_thenFail() throws Exception {
         MultiValueMap<String, String> formData = new LinkedMultiValueMap<>(2);
-        formData.add("username", "baeldung");
-        formData.add("password", "try_again");
+        formData.add("user", "baeldung");
+        formData.add("token", "try_again");
 
         client.post()
             .uri("/login")
