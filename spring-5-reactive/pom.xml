@@ -129,6 +129,9 @@
                     <!-- <mainClass>com.baeldung.reactive.Spring5ReactiveApplication</mainClass> -->
                     <mainClass>com.baeldung.reactive.serversentevents.server.ServerSSEApplication</mainClass>
                     <layout>JAR</layout>
+                    <jvmArguments>
+                        -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
+                    </jvmArguments>
                 </configuration>
             </plugin>
         </plugins>
