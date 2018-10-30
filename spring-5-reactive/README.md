@@ -1,3 +1,9 @@
+## To build
+mvn clean install -Dgib.enabled=false
+
+## To run
+mvn spring-boot:run -Dgib.enabled=false
+
 ## Spring 5 Reactive Project
 
 ### The Course
