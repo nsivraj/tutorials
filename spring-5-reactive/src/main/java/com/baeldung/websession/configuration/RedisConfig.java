@@ -11,6 +11,17 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.session.data.redis.config.annotation.web.server.EnableRedisWebSession;
 
+// https://1upnote.me/post/2018/06/install-config-redis-on-mac-homebrew/
+// brew update
+// brew upgrade
+// brew install redis
+// brew services start redis
+// brew services stop redis
+// If you don’t want/need a background service you can just run: redis-server
+// vim /usr/local/etc/redis.conf
+// And start Redis with the configuration file as: redis-server /usr/local/etc/redis.conf
+// Test if Redis is running: redis-cli ping
+
 @Configuration
 @EnableRedisWebSession
 public class RedisConfig {
