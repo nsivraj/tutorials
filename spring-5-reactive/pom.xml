@@ -126,7 +126,8 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.baeldung.reactive.Spring5ReactiveApplication</mainClass>
+                    <!-- <mainClass>com.baeldung.reactive.Spring5ReactiveApplication</mainClass> -->
+                    <mainClass>com.baeldung.reactive.serversentevents.server.ServerSSEApplication</mainClass>
                     <layout>JAR</layout>
                 </configuration>
             </plugin>
