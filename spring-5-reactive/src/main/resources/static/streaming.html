@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- https://gist.github.com/jareware/aae9748a1873ef8a91e5/revisions -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, height=device-height" />
+    <title>Server-Sent Events Demo</title>
+    <style type="text/css">
+        body {
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
+     <script>
+        function streamEvents(eventURI, eventType) {
+            var ul = document.querySelector('ul');
+            var es = new EventSource(eventURI);
+            function li(text) {
+                var li = document.createElement('li');
+                li.innerText = text;
+                ul.appendChild(li);
+            }
+            es.addEventListener('open', function() {
+                li('Server connected :)');
+            });
+            es.addEventListener(eventType, function(event) {
+                li(event.data);
+            });
+            es.addEventListener('error', function() {
+                li('Server unavailable :(');
+            });
+        }
+    </script>
+</head>
+<body>
+     <h1>Server-Sent Events Demo</h1>
+     <button onclick="streamEvents('/sse-server/stream-sse', 'periodic-event')">SSE with ServerSentEvent</button>
+     <button onclick="streamEvents('/sse-server/stream-flux', 'message')">SSE with Flux</button>
+     <ul></ul>
+ </body>
+</html>
+

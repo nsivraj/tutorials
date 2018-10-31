@@ -50,16 +50,14 @@ public class ServerController {
             .map(sequence -> ServerSentEvent.<String> builder()
                 .id(String.valueOf(sequence))
                 .event("periodic-event")
-                .data("SSE - " + LocalTime.now()
-                    .toString())
+                .data("SSE - " + LocalTime.now().toString())
                 .build());
     }
 
     @GetMapping(path = "/stream-flux", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> streamFlux() {
         return Flux.interval(Duration.ofSeconds(1))
-            .map(sequence -> "Flux - " + LocalTime.now()
-                .toString());
+            .map(sequence -> "Flux - " + LocalTime.now().toString());
     }
 
     @GetMapping(path = "/stream-json-stocks", produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
