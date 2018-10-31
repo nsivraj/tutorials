@@ -6,10 +6,12 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 import static org.springframework.web.reactive.function.server.RouterFunctions.toHttpHandler;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 
-import org.apache.catalina.Context;
-import org.apache.catalina.Wrapper;
-import org.apache.catalina.startup.Tomcat;
-import org.springframework.boot.web.embedded.tomcat.TomcatWebServer;
+// import org.apache.catalina.Context;
+// import org.apache.catalina.Wrapper;
+// import org.apache.catalina.startup.Tomcat;
+// import org.springframework.boot.web.embedded.tomcat.TomcatWebServer;
+import org.eclipse.jetty.server.Server;
+import org.springframework.boot.web.embedded.jetty.JettyWebServer;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.server.reactive.HttpHandler;
@@ -37,16 +39,19 @@ public class ExploreSpring5URLPatternUsingRouterFunctions {
             .filter(new IndexRewriteFilter())
             .build();
 
-        Tomcat tomcat = new Tomcat();
-        tomcat.setHostname("localhost");
-        tomcat.setPort(9090);
-        Context rootContext = tomcat.addContext("", System.getProperty("java.io.tmpdir"));
-        ServletHttpHandlerAdapter servlet = new ServletHttpHandlerAdapter(httpHandler);
-        Wrapper servletWrapper = Tomcat.addServlet(rootContext, "httpHandlerServlet", servlet);
-        servletWrapper.setAsyncSupported(true);
-        rootContext.addServletMappingDecoded("/", "httpHandlerServlet");
+        // Tomcat tomcat = new Tomcat();
+        // tomcat.setHostname("localhost");
+        // tomcat.setPort(9090);
+        // Context rootContext = tomcat.addContext("", System.getProperty("java.io.tmpdir"));
+        // ServletHttpHandlerAdapter servlet = new ServletHttpHandlerAdapter(httpHandler);
+        // Wrapper servletWrapper = Tomcat.addServlet(rootContext, "httpHandlerServlet", servlet);
+        // servletWrapper.setAsyncSupported(true);
+        // rootContext.addServletMappingDecoded("/", "httpHandlerServlet");
+        //TomcatWebServer server = new TomcatWebServer(tomcat);
 
-        TomcatWebServer server = new TomcatWebServer(tomcat);
+        Server jettyServer = new Server();
+        JettyWebServer server = new JettyWebServer(jettyServer);
+
         server.start();
         return server;
 

@@ -12,9 +12,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.apache.catalina.Context;
-import org.apache.catalina.startup.Tomcat;
-import org.springframework.boot.web.embedded.tomcat.TomcatWebServer;
+// import org.apache.catalina.Context;
+// import org.apache.catalina.startup.Tomcat;
+// import org.springframework.boot.web.embedded.tomcat.TomcatWebServer;
+import org.eclipse.jetty.server.Server;
+import org.springframework.boot.web.embedded.jetty.JettyWebServer;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.server.reactive.HttpHandler;
@@ -56,15 +58,18 @@ public class FunctionalWebApplication {
             .filter(new IndexRewriteFilter())
             .build();
 
-        Tomcat tomcat = new Tomcat();
-        tomcat.setHostname("localhost");
-        tomcat.setPort(9090);
-        Context rootContext = tomcat.addContext("", System.getProperty("java.io.tmpdir"));
-        ServletHttpHandlerAdapter servlet = new ServletHttpHandlerAdapter(httpHandler);
-        Tomcat.addServlet(rootContext, "httpHandlerServlet", servlet);
-        rootContext.addServletMappingDecoded("/", "httpHandlerServlet");
+        // Tomcat tomcat = new Tomcat();
+        // tomcat.setHostname("localhost");
+        // tomcat.setPort(9090);
+        // Context rootContext = tomcat.addContext("", System.getProperty("java.io.tmpdir"));
+        // ServletHttpHandlerAdapter servlet = new ServletHttpHandlerAdapter(httpHandler);
+        // Tomcat.addServlet(rootContext, "httpHandlerServlet", servlet);
+        // rootContext.addServletMappingDecoded("/", "httpHandlerServlet");
+        //TomcatWebServer server = new TomcatWebServer(tomcat);
 
-        TomcatWebServer server = new TomcatWebServer(tomcat);
+        Server jettyServer = new Server();
+        JettyWebServer server = new JettyWebServer(jettyServer);
+
         server.start();
         return server;
 
