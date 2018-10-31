@@ -1,4 +1,5 @@
 ## To build
+mvn clean compile
 mvn clean install -Dgib.enabled=false
 
 ## To run

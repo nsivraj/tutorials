@@ -11,22 +11,45 @@
         }
     </style>
      <script>
-        function streamEvents(eventURI, eventType) {
+         var decodeUint8array = new TextDecoder("utf-8");
+
+        function addLi(text) {
             var ul = document.querySelector('ul');
+            var li = document.createElement('li');
+            li.innerText = text;
+            ul.appendChild(li);
+        }
+
+        function streamEvents(eventURI, eventType) {
             var es = new EventSource(eventURI);
-            function li(text) {
-                var li = document.createElement('li');
-                li.innerText = text;
-                ul.appendChild(li);
-            }
             es.addEventListener('open', function() {
-                li('Server connected :)');
+                addLi('Server connected :)');
             });
             es.addEventListener(eventType, function(event) {
-                li(event.data);
+                addLi(event.data);
             });
             es.addEventListener('error', function() {
-                li('Server unavailable :(');
+                addLi('Server unavailable :(');
+            });
+        }
+
+        function read(resBody) {
+            return resBody.read().then(({ value, done }) => {
+                if (done) {
+                    addLi('Done streaming JSON');
+                    return;
+                } else {
+                    addLi(decodeUint8array.decode(value));
+                }
+                read(resBody);
+            });
+        }
+
+        function streamJSON(eventURI) {
+            fetch(eventURI).then(function(response) {
+                var resBody = response.body.getReader();
+                //console.log('fetch: ', eventURI);
+                read(resBody);
             });
         }
     </script>
@@ -35,6 +58,8 @@
      <h1>Server-Sent Events Demo</h1>
      <button onclick="streamEvents('/sse-server/stream-sse', 'periodic-event')">SSE with ServerSentEvent</button>
      <button onclick="streamEvents('/sse-server/stream-flux', 'message')">SSE with Flux</button>
+     <button onclick="streamEvents('/sse-server/stream-sse-stocks', 'message')">Flux SSE Stocks</button>
+     <button onclick="streamJSON('/sse-server/stream-json-stocks')">Flux JSON Stocks</button>
      <ul></ul>
  </body>
 </html>
