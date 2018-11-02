@@ -3,7 +3,7 @@ mvn clean compile
 mvn clean install -Dgib.enabled=false
 
 ## To run
-mvn spring-boot:run -Dgib.enabled=false
+mvn spring-boot:run -Dgib.enabled=false > running.output.txt 2>&1 &
 
 ## Spring 5 Reactive Project
 

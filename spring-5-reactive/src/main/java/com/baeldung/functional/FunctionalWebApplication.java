@@ -12,16 +12,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import javax.servlet.Servlet;
+
 // import org.apache.catalina.Context;
 // import org.apache.catalina.Wrapper;
 // import org.apache.catalina.startup.Tomcat;
 // import org.springframework.boot.web.embedded.tomcat.TomcatWebServer;
 import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
 import org.springframework.boot.web.embedded.jetty.JettyWebServer;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.server.reactive.HttpHandler;
-import org.springframework.http.server.reactive.ServletHttpHandlerAdapter;
+import org.springframework.http.server.reactive.JettyHttpHandlerAdapter;
+//import org.springframework.http.server.reactive.ServletHttpHandlerAdapter;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -70,10 +76,19 @@ public class FunctionalWebApplication {
         // TomcatWebServer server = new TomcatWebServer(tomcat);
 
         Server jettyServer = new Server();
-        JettyWebServer server = new JettyWebServer(jettyServer);
+        Servlet jettyServlet = new JettyHttpHandlerAdapter(httpHandler);
+        ServletContextHandler contextHandler = new ServletContextHandler(jettyServer, "");
+        contextHandler.addServlet(new ServletHolder(jettyServlet), "/");
+        contextHandler.start();
 
-        server.start();
-        return server;
+        ServerConnector connector = new ServerConnector(jettyServer);
+        connector.setHost("localhost");
+        connector.setPort(9090);
+        jettyServer.addConnector(connector);
+        JettyWebServer webServer = new JettyWebServer(jettyServer);
+
+        webServer.start();
+        return webServer;
 
     }
 
