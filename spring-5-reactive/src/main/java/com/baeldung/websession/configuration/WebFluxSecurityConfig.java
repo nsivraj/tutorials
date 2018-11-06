@@ -37,6 +37,7 @@ public class WebFluxSecurityConfig {
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         http
                 .authorizeExchange()
+                .pathMatchers("/event-emitter").permitAll()
                 .anyExchange().authenticated()
                 .and()
                 .httpBasic()

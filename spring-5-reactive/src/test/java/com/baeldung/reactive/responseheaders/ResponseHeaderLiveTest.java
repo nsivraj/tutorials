@@ -12,7 +12,7 @@ import org.springframework.test.web.reactive.server.WebTestClient.ResponseSpec;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ResponseHeaderLiveTest {
 
-    private static final String BASE_URL = "http://localhost:8080";
+    private static final String BASE_URL = "https://localhost:8443";
     private static final String ANNOTATION_BASE_URL = BASE_URL + "/response-header";
     private static final String FUNCTIONAL_BASE_URL = BASE_URL + "/functional-response-header";
     private static final String SERVICE_SINGLE_RESPONSE_HEADER = "Baeldung-Example-Header";

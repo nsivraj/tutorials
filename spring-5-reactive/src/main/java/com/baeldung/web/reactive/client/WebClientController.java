@@ -68,15 +68,15 @@ public class WebClientController {
     }
 
     private WebClient createWebClientWithServerURL() {
-        return WebClient.create("http://localhost:8081");
+        return WebClient.create("https://localhost:8443");
     }
 
     private WebClient createWebClientWithServerURLAndDefaultValues() {
         return WebClient.builder()
-            .baseUrl("http://localhost:8081")
+            .baseUrl("https://localhost:8443")
             .defaultCookie("cookieKey", "cookieValue")
             .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-            .defaultUriVariables(Collections.singletonMap("url", "http://localhost:8080"))
+            .defaultUriVariables(Collections.singletonMap("url", "https://localhost:8443"))
             .build();
     }
 

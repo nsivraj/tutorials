@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class FunctionalEndpointValidationsLiveTest {
 
-    private static final String BASE_URL = "http://localhost:8080";
+    private static final String BASE_URL = "https://localhost:8443";
     private static final String COMPLEX_EP_URL = BASE_URL + "/complex-handler-functional-validation";
     private static final String DRY_EP_URL = BASE_URL + "/dry-functional-validation";
     private static final String ANNOTATIONS_EP_URL = BASE_URL + "/annotated-functional-validation";

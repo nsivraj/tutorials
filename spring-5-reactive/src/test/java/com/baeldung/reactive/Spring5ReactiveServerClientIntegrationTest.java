@@ -26,7 +26,7 @@ public class Spring5ReactiveServerClientIntegrationTest {
 
     @BeforeAll
     public static void setUp() throws Exception {
-        HttpServer server = HttpServer.create("localhost", 8080);
+        HttpServer server = HttpServer.create("localhost", 8443);
         RouterFunction<?> route = RouterFunctions.route(POST("/task/process"), request -> ServerResponse.ok()
             .body(request.bodyToFlux(Task.class)
                 .map(ll -> new Task("TaskName", 1)), Task.class))
@@ -45,7 +45,7 @@ public class Spring5ReactiveServerClientIntegrationTest {
 
     // @Test
     // public void givenCheckTask_whenServerHandle_thenServerResponseALiveString() throws Exception {
-    // WebClient client = WebClient.create("http://localhost:8080");
+    // WebClient client = WebClient.create("https://localhost:8443");
     // Mono<String> result = client
     // .get()
     // .uri("/task")
@@ -57,7 +57,7 @@ public class Spring5ReactiveServerClientIntegrationTest {
 
     // @Test
     // public void givenThreeTasks_whenServerHandleTheTasks_thenServerResponseATask() throws Exception {
-    // URI uri = URI.create("http://localhost:8080/task/process");
+    // URI uri = URI.create("https://localhost:8443/task/process");
     // ExchangeFunction exchange = ExchangeFunctions.create(new ReactorClientHttpConnector());
     // ClientRequest request = ClientRequest
     // .method(HttpMethod.POST, uri)
@@ -73,7 +73,7 @@ public class Spring5ReactiveServerClientIntegrationTest {
 
     // @Test
     // public void givenCheckTask_whenServerHandle_thenOragicServerResponseALiveString() throws Exception {
-    // URI uri = URI.create("http://localhost:8080/task");
+    // URI uri = URI.create("https://localhost:8443/task");
     // ExchangeFunction exchange = ExchangeFunctions.create(new ReactorClientHttpConnector());
     // ClientRequest request = ClientRequest
     // .method(HttpMethod.GET, uri)
